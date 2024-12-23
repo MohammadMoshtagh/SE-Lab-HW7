@@ -16,8 +16,8 @@ public class Memory {
 
     public Memory() {
         codeBlock = new ArrayList<_3AddressCode>();
-        lastTempIndex = stratTempMemoryAddress;
-        lastDataAddress = stratDataMemoryAddress;
+        setLastTempIndex(stratTempMemoryAddress);
+        setLastDataAddress(stratDataMemoryAddress);
     }
 
     public int getTemp() {
@@ -25,7 +25,7 @@ public class Memory {
     }
 
     public void increaseTemp() {
-        lastTempIndex += tempSize;
+        setLastTempIndex(lastTempIndex + tempSize);
     }
 
     public int getDateAddress() {
@@ -33,7 +33,15 @@ public class Memory {
     }
 
     public void increaseDateAddress() {
-        lastDataAddress += dataSize;
+        setLastDataAddress(lastDataAddress + dataSize);
+    }
+
+    private void setLastTempIndex(int lastTempIndex) {
+        this.lastTempIndex = lastTempIndex;
+    }
+
+    private void setLastDataAddress(int lastDataAddress) {
+        this.lastDataAddress = lastDataAddress;
     }
 
     public int saveMemory() {
