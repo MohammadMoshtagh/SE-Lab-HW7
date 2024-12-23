@@ -69,6 +69,27 @@ modifier
 جدا کنیم. 
 <img src="src/main/resources/images/sqm/memory-after.png">
 
+## Self Encapsulated Field
+برای این مورد هم باز به سراغ کلاس
+[Memory](src/main/java/MiniJava/codeGenerator/Memory.java)
+می‌رویم. مشاهده می‌کنیم که در این کلاس دو فیلد خصوصی 
+`lastTempIndex`
+و
+`lastDataAddress`
+تابع 
+setter 
+ندارند و درون توابع مختلف کلاس 
+assign
+می‌شوند.
+<img src="src/main/resources/images/sef/memory-before.png">
+بنابراین برای حل این مشکل برای آن‌ها 
+setter
+تعریف می‌کنیم و هرجایی که مقداری در این متغیرها قرار داده شد، آن را از طریق 
+setterهایی 
+که اضافه کردیم انجام می‌دهیم.
+<img src="src/main/resources/images/sef/memory-after.png">
+
+
 ### استفاده از Polymorphism به‌جای شرط
 
 در این بازآرایی، دنبال شرط‌هایی هستیم که در صورت رخ‌دادن هر کدام، یک تابع مجزا اجرا می‌شود. در این حالت، به‌ازای هر حالت ممکن شرط، یک کلاس فرزند با ارث‌بری از کلاس آن تابع می‌سازیم و با اورراید کردن تابع مذکور، فانکشنالیتی مورد نظر را پیاده می‌کنیم. یکی از این موارد، در کلاس
