@@ -341,14 +341,25 @@ for (int j = 1; j < cols.length; j++) {
 - گاهی اوقات کلاس تنبل با هدف معین کردن اهدافی برای توسعه‌ی آینده به وجود آمده است. در این موارد سعی می‌کنیم تعادلی میان سادگی و شفاف بودن کد ایجاد کنیم و این را به عنوان بوی بد در نظر نمی‌گیریم.
 
 
+
 4. <br>
-   1. Switch Statements: در اینترفیس LexicalAnalyzer یک سوییچ کیس بسیار بلند وجود دارد. ![alt text](./src/main/resources/images/switch.png)
-   2. Dispensables -> comments: ![alt text](./src/main/resources/images/comments.png)
-   3. Dispensables -> dead code: در حقیقت if موجود به درد نخور است زیرا عملیات پرینت شدن همواه انجام می‌شود. ![alt text](./src/main/resources/images/dead%20code.png)
-   4. Long Class: ![alt text](./src/main/resources/images/long%20class.png)
-   5. Long Method: همانطور که مشاهده می‌شود، این کلاس ۶۳ خط است که مقدار بسیار زیادی برای یک تابع محسوب می‌شود. ![alt text](./src/main/resources/images/long%20method.png)
-   6. duplicate code: ![alt text](./src/main/resources/images/duplicate.png)
-   7. Coupled -> Inappropriate Intimacy: در کلاس Phase2CodeGenerator از فیلدهای کلاس Phase2CodeFileManipulator  بسیار استفاده می‌شود. ![alt text](./src/main/resources/images/duplicate.png)
+   1. Switch Statements: در اینترفیس LexicalAnalyzer یک سوییچ کیس بسیار بلند وجود دارد. <img src="/src/main/resources/images/switch.png">
+   2. Dispensables -> comments: <img src="/src/main/resources/images/comments.png">
+   3. Dispensables -> dead code: در حقیقت if موجود به درد نخور است زیرا عملیات پرینت شدن همواه انجام می‌شود. <img src="/src/main/resources/images/dead%20code.png">
+   4. Long Class: <img src="/src/main/resources/images/long%20class.png">
+   5. Long Method: همانطور که مشاهده می‌شود، این کلاس ۶۳ خط است که مقدار بسیار زیادی برای یک تابع محسوب می‌شود. <img src="/src/main/resources/images/long%20method.png">
+   6. duplicate code: <img src="/src/main/resources/images/duplicate.png">
+   7. Coupled -> Inappropriate Intimacy: در کلاس Phase2CodeGenerator از فیلدهای کلاس Phase2CodeFileManipulator  بسیار استفاده می‌شود. <img src="/src/main/resources/images/duplicate.png">
+   8. Magic numbers: اعداد هاردکد شده در فایل
+   `Main.java`
+   بسیار زیاد دیده می‌شوند:
+   <img src="src/main/resources/images/magic.png">
+   9. Feature Envy: زمانی که یک متد به داده‌های یک آبجکت دیگر به‌جز داده‌های خودش دسترسی پیدا کند. در تکه‌کد زیر این مورد در فایل
+   `Main.java`
+   دیده می‌شود.
+   <img src="src/main/resources/images/feature.png">
+   10. Data Class: در کلاس زیر مشاهده می‌کنید که فقط شامل دیتا است و متد خاصی را پیاده‌سازی نمی‌کند. این یک بوی بد است که می‌تواند اصلاح شود.
+   <img src="src/main/resources/images/dataclass.png">
 
 
 5. این پلاگین برای قالب‌بندی کد در پروژه‌های Maven استفاده می‌شود. با استفاده از این ابزار می‌توان کدها را بر اساس استانداردهای مشخص (مانند استانداردهای Java) به صورت خودکار فرمت کرد و از یکنواختی در ساختار کد اطمینان حاصل کرد.
