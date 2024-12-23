@@ -21,13 +21,19 @@ public class Memory {
     }
 
     public int getTemp() {
-        lastTempIndex += tempSize;
         return lastTempIndex - tempSize;
     }
 
+    public void increaseTemp() {
+        lastTempIndex += tempSize;
+    }
+
     public int getDateAddress() {
-        lastDataAddress += dataSize;
         return lastDataAddress - dataSize;
+    }
+
+    public void increaseDateAddress() {
+        lastDataAddress += dataSize;
     }
 
     public int saveMemory() {
