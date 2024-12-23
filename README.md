@@ -1,38 +1,49 @@
-# MiniJava
-Mini-Java is a subset of Java. MiniJava compiler implement a compiler for the Mini-java
-programming language.
+## استفاده از الگوی Facade 
+### مورد اول - کلاس Parser 
+در ابتدا مشاهده می‌کنیم که در کلاس 
+[Parser](src/main/java/MiniJava/parser/Parser.java)
+از سرویس‌های متعددی مانند lexicalAnalyzer و ParseTable استفاده شده است. این استفاده متعدد از سرویس‌های مختلف باعث شده که خوانایی کد در این کلاس پایین بیاید و دنبال کردن عملکرد اصلی آن سخت باشد. 
+<img src="src/main/resources/images/facade/parser-facade-before.png">
+برای حل این مشکل ما یک کلاس 
+Facade 
+به نام
+[TransitionHandlerFacade](src/main/java/MiniJava/parser/TransitionHandlerFacade.java)
+به پروژه اضافه می‌کنیم تا سرویس‌های مختلف را به داخل آن انتقال دهیم و فقط دو تابع 
+`printMemory`
+و 
+`handleNextToken`
+را به بیرون باز می‌کنیم تا کلاس
+[Parser](src/main/java/MiniJava/parser/Parser.java)
+از آن‌ها استفاده کند و عملکردی که از آن انتظار می‌رود را انجام دهد.
+<img src="src/main/resources/images/facade/parser-facade-after.png">
+مشاهده می‌کنید که خوانایی این کلاس و فهم عملکرد آن بسیار راحت‌تر از حالت قبل شده است.
+<img src="src/main/resources/images/facade/transition-handler.png">
 
-# Rules of MiniJava
-```
-Goal --> Source EOF
-Source --> ClassDeclarations MainClass
-MainClass --> class Identifier { public static void main() { VarDeclarations Statements}}
-ClassDeclarations --> ClassDeclaration ClassDeclarations | lambda
-ClassDeclaration --> class Identifier Extension { FieldDeclarations MethodDeclarations }
-Extension --> extends Identifier | lambda
-FieldDeclarations --> FieldDeclaration FieldDeclarations | lambda
-FieldDeclaration --> static Type Identifier ;
-VarDeclarations --> VarDeclaration VarDeclarations | lambda
-VarDeclaration --> Type Identifier ;
-MethodDeclarations --> MethodDeclaration MethodDeclarations | lambda
-MethodDeclaration --> public static Type Identifier ( Parameters ) { VarDeclarations Statements return GenExpression ; }
-Parameters --> Type Identifier Parameter | lambda
-Parameter --> , Type Identifier Parameter | lambda
-Type --> boolean | int
-Statements --> Statements Statement | lambda
-Statement --> { Statements } | if ( GenExpression ) Statement else Statement | while ( GenExpression ) Statement | System.out.println ( GenExpression ) ; | Identifier = GenExpression ;
-GenExpression --> Expression | RelExpression
-Expression --> Expression + Term | Expression - Term | Term
-Term --> Term * Factor | Factor
-Factor --> ( Expression ) | Identifier | Identifier . Identifier | Identifier . Identifier ( Arguments ) | true | false | Integer
-RelExpression --> RelExpression && RelTerm | RelTerm
-RelTerm --> Expression == Expression | Expression < Expression
-Arguments --> GenExpression Argument | lambda
-Argument --> , GenExpression Argument | lambda
-Identifier --> <IDENTIFIER_LITERAL>
-Integer --> <INTEGER_LITERAL>
-```
-
+### مورد دوم - کلاس Token
+در کلاس 
+[Token](src/main/java/MiniJava/scanner/token/Token.java)
+و در تابع 
+`getTyepFormString`
+مشاهده می‌کنیم که برای چک کردن اینکه آیا رشته ورودی با پترن‌ها تطابق دارند یا خیر، از سرویس‌های 
+Pattern
+و 
+Matcher
+جاوا استفاده می‌شود. 
+<img src="src/main/resources/images/facade/token-facade-before.png">
+برای اینکه نیاز این کلاس را به استفاده از این دو سرویس از بین ببریم، یک کلاس 
+Facade 
+به نام
+[PatternMatcherFacade](src/main/java/MiniJava/scanner/token/PatternMatcherFacade.java)
+تعریف می‌کنیم و استفاده از این دو سرویس برای چک کردن مچ شدن با یک الگو را درون آن انجام می‌دهیم.
+<img src="src/main/resources/images/facade/token-facade-after.png">
+با استفاده از این کار باعث می‌شویم خوانایی تابع
+`getTyepFormString`
+بالاتر برود و فقط عملکردی که از آن انتظار می‌رود را انجام دهد و دیگر لازم نباشد تا آبجکت‌هایی از جنس 
+Pattern 
+و 
+Matcher 
+در خود بسازد.
+<img src="src/main/resources/images/facade/pattern-matcher.png">
 ### Remove Assignments to Parameters
 
 پارامترهای یک تابع درون بدنه‌ی آن نباید تغییر کنند. بهتر است از یک متغیر کمکی به‌جای آن استفاده کنیم.

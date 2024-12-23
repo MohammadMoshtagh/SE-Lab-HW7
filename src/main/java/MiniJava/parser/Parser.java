@@ -1,8 +1,5 @@
 package MiniJava.parser;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 public class Parser {
     private TransitionHandlerFacade transitionHandlerFacade;
 
