@@ -1,5 +1,5 @@
 ## استفاده از الگوی Facade 
-### مورد اول - کلاس Parser 
+### مورد اول - کلاس [Parser](src/main/java/MiniJava/parser/Parser.java) 
 در ابتدا مشاهده می‌کنیم که در کلاس 
 [Parser](src/main/java/MiniJava/parser/Parser.java)
 از سرویس‌های متعددی مانند lexicalAnalyzer و ParseTable استفاده شده است. این استفاده متعدد از سرویس‌های مختلف باعث شده که خوانایی کد در این کلاس پایین بیاید و دنبال کردن عملکرد اصلی آن سخت باشد. 
@@ -19,7 +19,7 @@ Facade
 مشاهده می‌کنید که خوانایی این کلاس و فهم عملکرد آن بسیار راحت‌تر از حالت قبل شده است.
 <img src="src/main/resources/images/facade/transition-handler.png">
 
-### مورد دوم - کلاس Token
+### مورد دوم - کلاس [Token](src/main/java/MiniJava/scanner/token/Token.java)
 در کلاس 
 [Token](src/main/java/MiniJava/scanner/token/Token.java)
 و در تابع 
@@ -45,6 +45,29 @@ Matcher
 در خود بسازد.
 <img src="src/main/resources/images/facade/pattern-matcher.png">
 
+## Separate Query from Modifier
+برای این بخش ما کلاس
+[Memory](src/main/java/MiniJava/codeGenerator/Memory.java)
+را انتخاب کردیم. در این کلاس دوتابع
+`getTemp`
+و
+`getDateAddress`
+هم فیلد را تغییر می‌دهند و هم آن را خروجی می‌دهند و به همین علت نیاز داریم تا این دو عملکرد را جدا کنیم.
+<img src="src/main/resources/images/sqm/memory-before.png">
+برای حل این مشکل، دوتابع 
+`increaseTemp`
+و
+`increaseDateAddress`
+را اضافه می‌کنیم و در همه جاهایی که تابع‌های 
+get
+صدا زده می‌شدند، قبلشان این توابع 
+increase
+را صدا می‌کنیم تا عملکرد برنامه مختل نشود و در عین حال بتوانیم 
+query
+را از 
+modifier 
+جدا کنیم. 
+<img src="src/main/resources/images/sqm/memory-after.png">
 
 ### استفاده از Polymorphism به‌جای شرط
 
