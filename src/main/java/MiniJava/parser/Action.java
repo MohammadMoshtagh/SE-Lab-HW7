@@ -11,6 +11,19 @@ public abstract class Action {
         this.number = number;
     }
 
+    public static Action createAction(act action, int number) {
+        switch (action) {
+            case shift:
+                return new ShiftAction(action, number);
+            case accept:
+                return new ReduceAction(action, number);
+            case reduce:
+                return new AcceptAction(action, number);
+            default:
+                return new DefaultAction(action, number);
+        }
+    }
+
     public abstract String toString();
 }
 

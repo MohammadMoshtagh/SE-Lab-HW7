@@ -33,6 +33,103 @@ Identifier --> <IDENTIFIER_LITERAL>
 Integer --> <INTEGER_LITERAL>
 ```
 
+### Remove Assignments to Parameters
+
+پارامترهای یک تابع درون بدنه‌ی آن نباید تغییر کنند. بهتر است از یک متغیر کمکی به‌جای آن استفاده کنیم.
+در کلاس
+`Rule.java`
+این تکه‌کد مشاهده می‌شود:
+
+```Java
+public class Rule {
+    public Rule(String stringRule) {
+        int index = stringRule.indexOf("#");
+        if (index != -1) {
+            try {
+                semanticAction = Integer.parseInt(stringRule.substring(index + 1));
+            } catch (NumberFormatException ex) {
+                semanticAction = 0;
+            }
+            stringRule = stringRule.substring(0, index);
+        } else {
+            semanticAction = 0;
+        }
+        String[] splited = stringRule.split("->");
+        ...
+    }
+}
+```
+
+که به‌وضوح پارامتر
+`stringRule`
+تغییر کرده‌است. بعد از بازآرایی، این تکه‌کد این‌چنین می‌شود:
+
+```Java
+public class Rule {
+    public Rule(String stringRule) {
+        int index = stringRule.indexOf("#");
+        String tmpStringRule = stringRule;
+        if (index != -1) {
+            try {
+                semanticAction = Integer.parseInt(tmpStringRule.substring(index + 1));
+            } catch (NumberFormatException ex) {
+                semanticAction = 0;
+            }
+            tmpStringRule = tmpStringRule.substring(0, index);
+        } else {
+            semanticAction = 0;
+        }
+        String[] splited = tmpStringRule.split("->");
+        ...
+    }
+}
+```
+
+### Replace Constructor with Factory Method
+
+یک تابع که شی‌های کلاس را می‌سازد، به کلاس اضافه می‌کنیم:
+
+```Java
+
+public static Action createAction(act action, int number) {
+        switch (action) {
+            case shift:
+                return new ShiftAction(action, number);
+            case accept:
+                return new ReduceAction(action, number);
+            case reduce:
+                return new AcceptAction(action, number);
+            default:
+                return new DefaultAction(action, number);
+        }
+    }
+
+```
+
+اکنون هرجای کد که از این کلاس شیی ساخته‌ایم، از این تابع استفاده می‌کنیم. برای مثال، تکه‌کد زیر بازآرایی شده‌ی حالت قبلی است:
+
+```Java
+
+for (int j = 1; j < cols.length; j++) {
+                if (!cols[j].equals("")) {
+                    if (cols[j].equals("acc")) {
+                        actionTable.get(actionTable.size() - 1).put(terminals.get(j), Action.createAction(act.accept, 0));
+                    } else if (terminals.containsKey(j)) {
+                        Token t = terminals.get(j);
+                        Action a = Action.createAction(cols[j].charAt(0) == 'r' ? act.reduce : act.shift, Integer.parseInt(cols[j].substring(1)));
+                        actionTable.get(actionTable.size() - 1).put(t, a);
+                    } else if (nonTerminals.containsKey(j)) {
+                        gotoTable.get(gotoTable.size() - 1).put(nonTerminals.get(j), Integer.parseInt(cols[j]));
+                    } else {
+                        throw new Exception();
+                    }
+                }
+            }
+
+```
+
+---
+
 
 # Questions
 
