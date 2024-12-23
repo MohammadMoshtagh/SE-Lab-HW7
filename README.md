@@ -33,6 +33,125 @@ Identifier --> <IDENTIFIER_LITERAL>
 Integer --> <INTEGER_LITERAL>
 ```
 
+### استفاده از Polymorphism به‌جای شرط
+
+در این بازآرایی، دنبال شرط‌هایی هستیم که در صورت رخ‌دادن هر کدام، یک تابع مجزا اجرا می‌شود. در این حالت، به‌ازای هر حالت ممکن شرط، یک کلاس فرزند با ارث‌بری از کلاس آن تابع می‌سازیم و با اورراید کردن تابع مذکور، فانکشنالیتی مورد نظر را پیاده می‌کنیم. یکی از این موارد، در کلاس
+`Action.java`
+پیدا می‌شود که این‌گونه بازآرایی می‌کنیم:
+
+```Java
+
+public abstract class Action {
+    public act action;
+    //if action = shift : number is state
+    //if action = reduce : number is number of rule
+    public int number;
+
+    public Action(act action, int number) {
+        this.action = action;
+        this.number = number;
+    }
+
+    public abstract String toString();
+}
+
+class AcceptAction extends Action {
+    public AcceptAction(act action, int number) {
+        super(action, number);
+    }
+
+    public String toString() {
+        return "acc";
+    }
+}
+
+class ShiftAction extends Action {
+
+    public ShiftAction(act action, int number) {
+        super(action, number);
+    }
+
+    public String toString() {
+        return "s" + number;
+    }
+}
+
+class ReduceAction extends Action {
+
+    public ReduceAction(act action, int number) {
+        super(action, number);
+    }
+
+    public String toString() {
+        return "r" + number;
+    }
+}
+
+class DefaultAction extends Action {
+
+    public DefaultAction(act action, int number) {
+        super(action, number);
+    }
+
+    public String toString() {
+        return action.toString() + number;
+    }
+}
+
+```
+
+اکنون در تمام جاهایی که از این کلاس شی‌ای ساخته شده بود، کلاس فرزند متناظر را جایگزین می‌کنیم. مانند این تکه کد در فایل 
+`ParseTable.java`:
+
+```Java
+
+for (int j = 1; j < cols.length; j++) {
+                if (!cols[j].equals("")) {
+                    if (cols[j].equals("acc")) {
+                        actionTable.get(actionTable.size() - 1).put(terminals.get(j), new Action(act.accept, 0));
+                    } else if (terminals.containsKey(j)) {
+//                        try {
+                        Token t = terminals.get(j);
+                        Action a = new Action(cols[j].charAt(0) == 'r' ? act.reduce : act.shift, Integer.parseInt(cols[j].substring(1)));
+                        actionTable.get(actionTable.size() - 1).put(t, a);
+//                        }catch (StringIndexOutOfBoundsException e){
+//                            e.printStackTrace();
+//                        }
+                    } else if (nonTerminals.containsKey(j)) {
+                        gotoTable.get(gotoTable.size() - 1).put(nonTerminals.get(j), Integer.parseInt(cols[j]));
+                    } else {
+                        throw new Exception();
+                    }
+                }
+            }
+
+```
+
+که بعد از بازآرایی این‌گونه می‌شود:
+
+```Java
+
+for (int j = 1; j < cols.length; j++) {
+                if (!cols[j].equals("")) {
+                    if (cols[j].equals("acc")) {
+                        actionTable.get(actionTable.size() - 1).put(terminals.get(j), new AcceptAction(act.accept, 0));
+                    } else if (terminals.containsKey(j)) {
+                        Token t = terminals.get(j);
+                        Action a;
+                        if (cols[j].charAt(0) == 'r')
+                            a = new AcceptAction(act.reduce, Integer.parseInt(cols[j].substring(1)));
+                        else
+                            a = new ShiftAction(act.shift, Integer.parseInt(cols[j].substring(1)));
+                        actionTable.get(actionTable.size() - 1).put(t, a);
+                    } else if (nonTerminals.containsKey(j)) {
+                        gotoTable.get(gotoTable.size() - 1).put(nonTerminals.get(j), Integer.parseInt(cols[j]));
+                    } else {
+                        throw new Exception();
+                    }
+                }
+            }
+
+```
 
 # Questions
 
