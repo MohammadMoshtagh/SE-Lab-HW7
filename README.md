@@ -68,16 +68,16 @@ Integer --> <INTEGER_LITERAL>
 
 
 4. <br>
-   1. Switch Statements: در اینترفیس LexicalAnalyzer یک سوییچ کیس بسیار بلند وجود دارد.
-   2. Dispensables -> comments: 
-   3. Dispensables -> dead code: در حقیقت if موجود به درد نخور است زیرا عملیات پرینت شدن همواه انجام می‌شود.
+   1. Switch Statements: در اینترفیس LexicalAnalyzer یک سوییچ کیس بسیار بلند وجود دارد. ![alt text](./src/main/resources/images/switch.png)
+   2. Dispensables -> comments: ![alt text](./src/main/resources/images/comments.png)
+   3. Dispensables -> dead code: در حقیقت if موجود به درد نخور است زیرا عملیات پرینت شدن همواه انجام می‌شود. ![alt text](./src/main/resources/images/dead%20code.png)
    4. Long Class: ![alt text](./src/main/resources/images/long%20class.png)
    5. Long Method: همانطور که مشاهده می‌شود، این کلاس ۶۳ خط است که مقدار بسیار زیادی برای یک تابع محسوب می‌شود. ![alt text](./src/main/resources/images/long%20method.png)
    6. duplicate code: ![alt text](./src/main/resources/images/duplicate.png)
    7. Coupled -> Inappropriate Intimacy: در کلاس Phase2CodeGenerator از فیلدهای کلاس Phase2CodeFileManipulator  بسیار استفاده می‌شود. ![alt text](./src/main/resources/images/duplicate.png)
 
 
-1. این پلاگین برای قالب‌بندی کد در پروژه‌های Maven استفاده می‌شود. با استفاده از این ابزار می‌توان کدها را بر اساس استانداردهای مشخص (مانند استانداردهای Java) به صورت خودکار فرمت کرد و از یکنواختی در ساختار کد اطمینان حاصل کرد.
+5. این پلاگین برای قالب‌بندی کد در پروژه‌های Maven استفاده می‌شود. با استفاده از این ابزار می‌توان کدها را بر اساس استانداردهای مشخص (مانند استانداردهای Java) به صورت خودکار فرمت کرد و از یکنواختی در ساختار کد اطمینان حاصل کرد.
 
 در فرآیند بازآرایی، قالب‌بندی کد اهمیت دارد. استفاده از Formatter باعث می‌شود کد تمیز بماند، که این موضوع درک تغییرات ایجادشده طی Refactoring را آسان‌تر می‌کند و از بروز مشکلات مرتبط با ساختار کد جلوگیری می‌کند. <br>
 
