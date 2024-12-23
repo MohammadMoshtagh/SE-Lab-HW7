@@ -90,7 +90,7 @@ setterهایی
 <img src="src/main/resources/images/sef/memory-after.png">
 
 
-### استفاده از Polymorphism به‌جای شرط
+## استفاده از Polymorphism به‌جای شرط
 
 در این بازآرایی، دنبال شرط‌هایی هستیم که در صورت رخ‌دادن هر کدام، یک تابع مجزا اجرا می‌شود. در این حالت، به‌ازای هر حالت ممکن شرط، یک کلاس فرزند با ارث‌بری از کلاس آن تابع می‌سازیم و با اورراید کردن تابع مذکور، فانکشنالیتی مورد نظر را پیاده می‌کنیم. یکی از این موارد، در کلاس
 `Action.java`
@@ -210,7 +210,7 @@ for (int j = 1; j < cols.length; j++) {
 
 ```
 
-### Remove Assignments to Parameters
+## Remove Assignments to Parameters
 
 پارامترهای یک تابع درون بدنه‌ی آن نباید تغییر کنند. بهتر است از یک متغیر کمکی به‌جای آن استفاده کنیم.
 در کلاس
@@ -262,7 +262,7 @@ public class Rule {
 }
 ```
 
-### Replace Constructor with Factory Method
+## Replace Constructor with Factory Method
 
 یک تابع که شی‌های کلاس را می‌سازد، به کلاس اضافه می‌کنیم:
 
