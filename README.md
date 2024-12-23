@@ -153,6 +153,58 @@ for (int j = 1; j < cols.length; j++) {
 
 ```
 
+### Remove Assignments to Parameters
+
+پارامترهای یک تابع درون بدنه‌ی آن نباید تغییر کنند. بهتر است از یک متغیر کمکی به‌جای آن استفاده کنیم.
+در کلاس
+`Rule.java`
+این تکه‌کد مشاهده می‌شود:
+
+```Java
+public class Rule {
+    public Rule(String stringRule) {
+        int index = stringRule.indexOf("#");
+        if (index != -1) {
+            try {
+                semanticAction = Integer.parseInt(stringRule.substring(index + 1));
+            } catch (NumberFormatException ex) {
+                semanticAction = 0;
+            }
+            stringRule = stringRule.substring(0, index);
+        } else {
+            semanticAction = 0;
+        }
+        String[] splited = stringRule.split("->");
+        ...
+    }
+}
+```
+
+که به‌وضوح پارامتر
+`stringRule`
+تغییر کرده‌است. بعد از بازآرایی، این تکه‌کد این‌چنین می‌شود:
+
+```Java
+public class Rule {
+    public Rule(String stringRule) {
+        int index = stringRule.indexOf("#");
+        String tmpStringRule = stringRule;
+        if (index != -1) {
+            try {
+                semanticAction = Integer.parseInt(tmpStringRule.substring(index + 1));
+            } catch (NumberFormatException ex) {
+                semanticAction = 0;
+            }
+            tmpStringRule = tmpStringRule.substring(0, index);
+        } else {
+            semanticAction = 0;
+        }
+        String[] splited = tmpStringRule.split("->");
+        ...
+    }
+}
+```
+
 # Questions
 
 1. 
