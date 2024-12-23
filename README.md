@@ -71,8 +71,8 @@ Integer --> <INTEGER_LITERAL>
    1. Switch Statements: در اینترفیس LexicalAnalyzer یک سوییچ کیس بسیار بلند وجود دارد.
    2. Dispensables -> comments: 
    3. Dispensables -> dead code: در حقیقت if موجود به درد نخور است زیرا عملیات پرینت شدن همواه انجام می‌شود.
-   4. Long Class:
-   5. Long Method: 
+   4. Long Class: ![alt text](./src/main/resources/images/long%20class.png)
+   5. Long Method: همانطور که مشاهده می‌شود، این کلاس ۶۳ خط است که مقدار بسیار زیادی برای یک تابع محسوب می‌شود. ![alt text](./src/main/resources/images/long%20method.png)
    6. duplicate code: ![alt text](./src/main/resources/images/duplicate.png)
    7. Coupled -> Inappropriate Intimacy: در کلاس Phase2CodeGenerator از فیلدهای کلاس Phase2CodeFileManipulator  بسیار استفاده می‌شود. ![alt text](./src/main/resources/images/duplicate.png)
 
